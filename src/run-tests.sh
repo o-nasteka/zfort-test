@@ -30,13 +30,10 @@ print_error() {
 }
 
 # Check if we're in the right directory
-if [ ! -f "src/artisan" ]; then
-    print_error "Please run this script from the project root directory"
+if [ ! -f "artisan" ]; then
+    print_error "Please run this script from the Laravel project directory (src/)"
     exit 1
 fi
-
-# Navigate to src directory
-cd src
 
 # Create logs directory if it doesn't exist
 mkdir -p storage/logs
@@ -47,7 +44,7 @@ REPORT_FILE="storage/logs/test-report-$(date +%Y%m%d_%H%M%S).txt"
 print_status "Running Laravel test suite..."
 
 # Run tests and capture output
-php artisan test --verbose > "$REPORT_FILE" 2>&1
+php artisan test > "$REPORT_FILE" 2>&1
 TEST_EXIT_CODE=$?
 
 # Count test results from the report

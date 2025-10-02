@@ -47,7 +47,7 @@ REPORT_FILE="storage/logs/test-report-$(date +%Y%m%d_%H%M%S).txt"
 print_status "Running Laravel test suite..."
 
 # Run tests and capture output
-php artisan test --verbose > "$REPORT_FILE" 2>&1
+php artisan test > "$REPORT_FILE" 2>&1
 TEST_EXIT_CODE=$?
 
 # Count test results from the report
