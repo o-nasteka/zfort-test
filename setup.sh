@@ -39,11 +39,11 @@ fi
 
 print_status "Setting up Laradock environment..."
 
-# Add Laradock as submodule if it doesn't exist
+# Clone Laradock if it doesn't exist
 if [ ! -d "laradock" ]; then
-    print_status "Adding Laradock as git submodule..."
-    git submodule add https://github.com/Laradock/laradock.git laradock
-    print_success "Laradock added as submodule successfully"
+    print_status "Cloning Laradock..."
+    git clone https://github.com/Laradock/laradock.git laradock
+    print_success "Laradock cloned successfully"
 else
     print_warning "Laradock directory already exists"
 fi

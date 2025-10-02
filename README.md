@@ -19,7 +19,7 @@ The setup script handles everything automatically:
 ```
 
 **What the script does:**
-1. ✅ **Adds Laradock as git submodule** - from official Laradock repository
+1. ✅ **Clones Laradock** - from official Laradock repository
 2. ✅ **Sets up Laradock environment** - copies project-specific `.env.example.laradock` to `laradock/.env`
 3. ✅ **Starts Docker containers** - nginx, mysql, phpmyadmin
 4. ✅ **Installs Laravel dependencies** - composer install
