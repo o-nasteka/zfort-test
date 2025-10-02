@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreActorRequest;
 use App\Models\Actor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;
 
 class ActorController extends Controller
 {
@@ -20,98 +19,55 @@ class ActorController extends Controller
         return view('actors.table', compact('actors'));
     }
 
-    public function store(Request $request)
+    public function store(StoreActorRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:actors,email',
-            'description' => 'required|string|unique:actors,description',
+        // Get AI service and extract actor information
+        $aiService = app(\App\Services\AI\AIServiceInterface::class);
+        
+        if (!$aiService->isConfigured()) {
+            return redirect()->back()
+                ->withErrors(['description' => 'AI service not configured. Please contact administrator.'])
+                ->withInput();
+        }
+
+        $aiResponse = $aiService->extractActorInfo($request->description);
+
+        if ($aiResponse === null) {
+            \Log::error('AI service returned null for description: ' . $request->description);
+            return redirect()->back()
+                ->withErrors(['description' => 'Failed to process description with AI service. Please try again.'])
+                ->withInput();
+        }
+
+        \Log::info('AI Response received:', $aiResponse);
+
+        // Check if required fields are present (as per original requirements)
+        if (empty($aiResponse['first_name']) || 
+            empty($aiResponse['last_name']) || 
+            empty($aiResponse['address'])) {
+            \Log::error('Missing required fields in AI response:', $aiResponse);
+            return redirect()->back()
+                ->withErrors(['description' => 'Please add first name, last name, and address to your description.'])
+                ->withInput();
+        }
+
+        // Create actor record
+        $actor = Actor::create([
+            'email' => $request->email,
+            'description' => $request->description,
+            'first_name' => $aiResponse['first_name'],
+            'last_name' => $aiResponse['last_name'],
+            'address' => $aiResponse['address'],
+            'height' => $aiResponse['height'] ?? null,
+            'weight' => $aiResponse['weight'] ?? null,
+            'gender' => $aiResponse['gender'] ?? null,
+            'age' => $aiResponse['age'] ?? null,
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        try {
-            // Call OpenAI API to extract information
-            $openaiResponse = $this->callOpenAI($request->description);
-            
-            if (!$openaiResponse) {
-                return redirect()->back()
-                    ->withErrors(['description' => 'Failed to process description with OpenAI API'])
-                    ->withInput();
-            }
-
-            // Check if required fields are present
-            if (empty($openaiResponse['first_name']) || 
-                empty($openaiResponse['last_name']) || 
-                empty($openaiResponse['address'])) {
-                return redirect()->back()
-                    ->withErrors(['description' => 'Please add first name, last name, and address to your description.'])
-                    ->withInput();
-            }
-
-            // Create actor record
-            $actor = Actor::create([
-                'email' => $request->email,
-                'description' => $request->description,
-                'first_name' => $openaiResponse['first_name'],
-                'last_name' => $openaiResponse['last_name'],
-                'address' => $openaiResponse['address'],
-                'height' => $openaiResponse['height'] ?? null,
-                'weight' => $openaiResponse['weight'] ?? null,
-                'gender' => $openaiResponse['gender'] ?? null,
-                'age' => $openaiResponse['age'] ?? null,
-            ]);
-
-            return redirect()->route('actors.table')
-                ->with('success', 'Actor information submitted successfully!');
-
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withErrors(['description' => 'An error occurred while processing your request.'])
-                ->withInput();
-        }
+        return redirect()->route('actors.table')
+            ->with('success', 'Actor information submitted successfully!');
     }
 
-    private function callOpenAI($description)
-    {
-        try {
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
-                'Content-Type' => 'application/json',
-            ])->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-3.5-turbo',
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => 'Extract the following information from the text and return it as JSON: first_name, last_name, address, height, weight, gender, age. If any information is not available, use null for that field.'
-                    ],
-                    [
-                        'role' => 'user',
-                        'content' => $description
-                    ]
-                ],
-                'temperature' => 0.1
-            ]);
-
-            if ($response->successful()) {
-                $data = $response->json();
-                $content = $data['choices'][0]['message']['content'] ?? '';
-                
-                // Try to parse JSON response
-                $parsed = json_decode($content, true);
-                if (json_last_error() === JSON_ERROR_NONE) {
-                    return $parsed;
-                }
-            }
-
-            return null;
-        } catch (\Exception $e) {
-            return null;
-        }
-    }
 
     public function promptValidation()
     {

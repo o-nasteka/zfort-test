@@ -7,53 +7,53 @@ Build a small Laravel project where users can submit information about an actor.
 
 ### 1. Setup Environment
 - [x] Clone Laradock repository
-- [ ] Configure Laradock environment (.env file)
-- [ ] Start Docker containers (nginx, php-fpm, mysql, redis)
-- [ ] Create Laravel application inside Laradock
+- [x] Configure Laradock environment (.env file)
+- [x] Start Docker containers (nginx, php-fpm, mysql, redis)
+- [x] Create Laravel application inside Laradock
 
 ### 2. Database Setup
-- [ ] Create actors migration with required fields
-- [ ] Set up database connection
-- [ ] Run migrations
+- [x] Create actors migration with required fields
+- [x] Set up database connection
+- [x] Run migrations
 
 ### 3. Form Page Implementation
-- [ ] Create form with email and actor description fields
-- [ ] Add submit button and helper text
-- [ ] Implement form validation (email and description required and unique)
-- [ ] Style with Bootstrap/Tailwind CDN
+- [x] Create form with email and actor description fields
+- [x] Add submit button and helper text
+- [x] Implement form validation (email and description required and unique)
+- [x] Style with Bootstrap/Tailwind CDN
 
 ### 4. OpenAI Integration
-- [ ] Set up OpenAI API configuration
-- [ ] Create service to process actor descriptions
-- [ ] Extract: First Name, Last Name, Address, Height, Weight, Gender, Age
-- [ ] Handle missing required fields (First Name, Last Name, Address)
+- [x] Set up OpenAI API configuration
+- [x] Create service to process actor descriptions
+- [x] Extract: First Name, Last Name, Address, Height, Weight, Gender, Age
+- [x] Handle missing required fields (First Name, Last Name, Address)
 
 ### 5. Database Operations
-- [ ] Save extracted fields to database
-- [ ] Ensure email uniqueness
-- [ ] Handle validation errors
+- [x] Save extracted fields to database
+- [x] Ensure email uniqueness
+- [x] Handle validation errors
 
 ### 6. Table Page
-- [ ] Create submissions table page
-- [ ] Display: First Name, Address, Gender (if available), Height (if available)
-- [ ] Style table appropriately
+- [x] Create submissions table page
+- [x] Display: First Name, Address, Gender (if available), Height (if available)
+- [x] Style table appropriately
 
 ### 7. API Endpoint
-- [ ] Create GET /api/actors/prompt-validation
-- [ ] Return JSON: { "message": "{text_prompt}" }
-- [ ] Use date as text_prompt when sending to OpenAI API
+- [x] Create GET /api/actors/prompt-validation
+- [x] Return JSON: { "message": "{text_prompt}" }
+- [x] Use date as text_prompt when sending to OpenAI API
 
 ### 8. Testing
-- [ ] Write basic tests for form validation
-- [ ] Write tests for OpenAI integration
-- [ ] Write tests for database operations
-- [ ] Write tests for API endpoint
+- [x] Write basic tests for form validation
+- [x] Write tests for OpenAI integration
+- [x] Write tests for database operations
+- [x] Write tests for API endpoint
 
 ### 9. Git Setup
-- [ ] Initialize git repository
-- [ ] Connect to GitHub repository: https://github.com/o-nasteka/zfort-test
-- [ ] Create initial commit
-- [ ] Set up proper gitflow
+- [x] Initialize git repository
+- [x] Connect to GitHub repository: https://github.com/o-nasteka/zfort-test
+- [x] Create initial commit
+- [x] Set up proper gitflow
 
 ## Requirements Summary
 
