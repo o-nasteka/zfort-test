@@ -41,18 +41,46 @@ class ActorController extends Controller
 
         \Log::info('AI Response received:', $aiResponse);
 
-        // Check if required fields are present (as per original requirements)
-        if (empty($aiResponse['first_name']) || 
-            empty($aiResponse['last_name']) || 
-            empty($aiResponse['address'])) {
-            \Log::error('Missing required fields in AI response:', $aiResponse);
+        // Validate AI response has required fields
+        if (!$this->validateAIResponse($aiResponse)) {
             return redirect()->back()
                 ->withErrors(['description' => 'Please add first name, last name, and address to your description.'])
                 ->withInput();
         }
 
         // Create actor record
-        $actor = Actor::create([
+        $actor = $this->createActor($request, $aiResponse);
+
+        return redirect()->route('actors.table')
+            ->with('success', 'Actor information submitted successfully!');
+    }
+
+    /**
+     * Validate AI response has required fields
+     */
+    private function validateAIResponse(array $aiResponse): bool
+    {
+        $requiredFields = ['first_name', 'last_name', 'address'];
+        
+        foreach ($requiredFields as $field) {
+            if (empty($aiResponse[$field])) {
+                \Log::error('Missing required field in AI response:', [
+                    'field' => $field,
+                    'response' => $aiResponse
+                ]);
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    /**
+     * Create actor record from request and AI response
+     */
+    private function createActor($request, array $aiResponse): Actor
+    {
+        return Actor::create([
             'email' => $request->email,
             'description' => $request->description,
             'first_name' => $aiResponse['first_name'],
@@ -63,11 +91,7 @@ class ActorController extends Controller
             'gender' => $aiResponse['gender'] ?? null,
             'age' => $aiResponse['age'] ?? null,
         ]);
-
-        return redirect()->route('actors.table')
-            ->with('success', 'Actor information submitted successfully!');
     }
-
 
     public function promptValidation()
     {
