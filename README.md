@@ -46,7 +46,6 @@ This is a Laravel application for managing actors with AI-powered description pr
 - ✅ **Optimizes application** - caches config, routes, views
 
 **After setup:**
-- The application is ready to use with pre-configured API keys
 - If you need to change API keys, edit `src/.env` and run `./restart.sh`
 
 **Container Access:**
