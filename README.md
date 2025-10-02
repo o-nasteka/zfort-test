@@ -113,10 +113,37 @@ This application follows SOLID principles and implements a clean architecture pa
 
 ## API Endpoints
 
-- `GET /actors` - List all actors
-- `GET /actors/create` - Show create actor form
+- `GET /` - Redirects to actors form
+- `GET /actors/form` - Show create actor form
 - `POST /actors` - Store new actor
-- `GET /actors/{id}` - Show specific actor
-- `GET /actors/{id}/edit` - Show edit actor form
-- `PUT /actors/{id}` - Update actor
-- `DELETE /actors/{id}` - Delete actor
+- `GET /actors/table` - Show actors table
+
+## Tests
+
+### Available Tests:
+- **AIServiceTest** - Tests AI service functionality
+- **ActorControllerTest** - Tests actor controller endpoints  
+- **ExampleTest** - Default Laravel test
+
+### Run Tests:
+```bash
+cd src
+php artisan test
+```
+
+### Run Specific Tests:
+```bash
+php artisan test tests/Feature/AIServiceTest.php
+php artisan test tests/Feature/ActorControllerTest.php
+```
+
+### Test Coverage:
+- ✅ AI service container resolution
+- ✅ Interface implementation
+- ✅ Configuration validation
+- ✅ Form page loading
+- ✅ Table page loading  
+- ✅ API endpoint
+- ✅ Form validation (email, description)
+
+**Total: ~8 test methods** covering core functionality.
