@@ -56,3 +56,5 @@ php artisan view:cache
 
 print_success "✅ Services restarted successfully!"
 print_success "🎉 Your Laravel application is ready with new API keys."
+echo ""
+print_status "🌐 Open Application in your browser: http://localhost"
