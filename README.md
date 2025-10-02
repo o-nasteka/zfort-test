@@ -126,6 +126,14 @@ This application follows SOLID principles and implements a clean architecture pa
 - **ExampleTest** - Default Laravel test
 
 ### Run Tests:
+
+**Option 1: Using the test script (recommended)**
+```bash
+cd src
+./run-tests.sh
+```
+
+**Option 2: Manual test execution**
 ```bash
 cd src
 php artisan test
@@ -136,6 +144,13 @@ php artisan test
 php artisan test tests/Feature/AIServiceTest.php
 php artisan test tests/Feature/ActorControllerTest.php
 ```
+
+### Test Script Features:
+- ✅ Runs all tests automatically
+- ✅ Saves detailed report to `storage/logs/`
+- ✅ Shows pass/fail counts
+- ✅ Displays report file location
+- ✅ Unique timestamped reports (no overwriting)
 
 ### Test Coverage:
 - ✅ AI service container resolution
