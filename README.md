@@ -40,6 +40,7 @@ This is a Laravel application for managing actors with AI-powered description pr
 
 **After setup, you only need to:**
 - Add your AI API keys to `src/.env` (optional)
+- If you added API keys, restart services: `./restart.sh`
 
 ## AI Providers
 
