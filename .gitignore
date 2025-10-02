@@ -9,8 +9,7 @@ src/storage/framework/views/*
 src/bootstrap/cache/*
 
 # Laradock
-laradock/.env
-laradock/logs/*
+laradock/
 
 # IDE
 .vscode/

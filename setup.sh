@@ -37,8 +37,29 @@ if [ ! -f "src/composer.json" ]; then
     exit 1
 fi
 
-print_status "Starting Docker containers..."
+print_status "Setting up Laradock environment..."
+
+# Add Laradock as submodule if it doesn't exist
+if [ ! -d "laradock" ]; then
+    print_status "Adding Laradock as git submodule..."
+    git submodule add https://github.com/Laradock/laradock.git laradock
+    print_success "Laradock added as submodule successfully"
+else
+    print_warning "Laradock directory already exists"
+fi
+
+# Copy project-specific .env to Laradock
+if [ -f ".env.example.laradock" ]; then
+    cp .env.example.laradock laradock/.env
+    print_success "Laradock .env file created from project template"
+else
+    print_error ".env.example.laradock not found!"
+    exit 1
+fi
+
 cd laradock
+
+print_status "Starting Docker containers..."
 docker-compose up -d nginx mysql phpmyadmin
 cd ..
 

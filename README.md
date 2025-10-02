@@ -12,9 +12,26 @@ This is a Laravel application for managing actors with AI-powered description pr
 
 ## Quick Start
 
+The setup script handles everything automatically:
+
 ```bash
 ./setup.sh
 ```
+
+**What the script does:**
+1. ✅ **Adds Laradock as git submodule** - from official Laradock repository
+2. ✅ **Sets up Laradock environment** - copies project-specific `.env.example.laradock` to `laradock/.env`
+3. ✅ **Starts Docker containers** - nginx, mysql, phpmyadmin
+4. ✅ **Installs Laravel dependencies** - composer install
+5. ✅ **Generates application key** - php artisan key:generate
+6. ✅ **Creates environment file** - copies `.env.example` to `.env`
+7. ✅ **Runs database migrations** - php artisan migrate
+8. ✅ **Sets up storage symlinks** - php artisan storage:link
+9. ✅ **Optimizes application** - caches config, routes, views
+
+**After setup, you only need to:**
+1. Add your OpenAI API key to `src/.env`
+2. Open http://localhost in your browser
 
 ## AI Providers
 
