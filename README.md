@@ -35,40 +35,14 @@ The application supports three AI providers:
 
 ## Environment Variables
 
-Create a `.env` file in the `src` directory with the following variables:
+The setup script automatically copies `.env.example` to `.env`. You only need to:
 
-```env
-# Application
-APP_NAME="Actor Management System"
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost
+1. Add your OpenAI API key to `src/.env`:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
 
-# Database
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=default
-DB_USERNAME=default
-DB_PASSWORD=secret
-
-# AI Configuration
-AI_DEFAULT_PROVIDER=openai
-
-# OpenAI Configuration
-OPENAI_API_KEY=your_openai_api_key_here
-OPENAI_MODEL=gpt-3.5-turbo
-OPENAI_BASE_URL=https://api.openai.com/v1
-
-# Anthropic Configuration
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
-ANTHROPIC_MODEL=claude-3-sonnet-20240229
-
-# Google AI Configuration
-GOOGLE_AI_API_KEY=your_google_ai_api_key_here
-GOOGLE_AI_MODEL=gemini-pro
-```
+2. Open http://localhost in your browser
 
 ## Manual Installation
 
