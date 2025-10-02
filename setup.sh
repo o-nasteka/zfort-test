@@ -69,9 +69,9 @@ sleep 5
 print_status "Running Laravel setup inside workspace container..."
 docker-compose -f laradock/docker-compose.yml exec -T workspace bash -c "
 cd /var/www &&
+cp .env.example .env &&
 composer install --no-dev --optimize-autoloader &&
 php artisan key:generate &&
-cp .env.example .env &&
 php artisan migrate --force &&
 php artisan storage:link &&
 php artisan config:clear &&
