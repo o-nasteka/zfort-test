@@ -22,18 +22,7 @@ This is a Laravel application for managing actors with AI-powered description pr
    ./setup.sh
    ```
 
-3. **Add OpenAI API Key to .env:**
-   ```bash
-   # Edit src/.env and add:
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
-
-4. **Run restart script:**
-   ```bash
-   ./restart.sh
-   ```
-
-5. **Open your browser:**
+3. **Open your browser:**
    ```
    http://localhost
    ```
@@ -49,9 +38,9 @@ This is a Laravel application for managing actors with AI-powered description pr
 - ✅ **Sets up storage symlinks** - php artisan storage:link
 - ✅ **Optimizes application** - caches config, routes, views
 
-**After setup, you only need to:**
-- Add your AI API keys to `src/.env` (optional)
-- If you added API keys, restart services: `./restart.sh`
+**After setup:**
+- The application is ready to use with pre-configured API keys
+- If you need to change API keys, edit `src/.env` and run `./restart.sh`
 
 ## AI Providers
 
