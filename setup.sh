@@ -72,7 +72,7 @@ cd /var/www &&
 cp .env.example .env &&
 composer install --no-dev --optimize-autoloader &&
 php artisan key:generate &&
-php artisan migrate --force &&
+php artisan migrate:fresh --force &&
 php artisan storage:link &&
 php artisan config:clear &&
 php artisan config:cache &&
