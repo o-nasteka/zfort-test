@@ -59,6 +59,9 @@ fi
 
 cd laradock
 
+print_status "Stopping any existing containers..."
+docker-compose down 2>/dev/null || true
+
 print_status "Starting Docker containers..."
 docker-compose up -d nginx mysql phpmyadmin
 cd ..
