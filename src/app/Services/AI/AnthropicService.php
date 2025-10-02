@@ -37,7 +37,7 @@ class AnthropicService implements AIServiceInterface
                 'messages' => [
                     [
                         'role' => 'user',
-                        'content' => "Extract the following information from the text and return it as JSON: first_name, last_name, address, height, weight, gender, age. If any information is not available, use null for that field.\n\nText: {$description}"
+                        'content' => config('ai.prompts.extract_actor_info') . "\n\nText: {$description}"
                     ]
                 ]
             ]);

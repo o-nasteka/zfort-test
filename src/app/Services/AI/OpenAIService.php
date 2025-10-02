@@ -35,7 +35,7 @@ class OpenAIService implements AIServiceInterface
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => 'Extract the following information from the text and return it as JSON: first_name, last_name, address, height, weight, gender, age. If any information is not available, use null for that field.'
+                        'content' => config('ai.prompts.extract_actor_info')
                     ],
                     [
                         'role' => 'user',

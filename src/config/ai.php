@@ -37,4 +37,16 @@ return [
             'model' => env('GOOGLE_AI_MODEL', 'gemini-pro'),
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | AI Prompts Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the prompts used for AI services.
+    |
+    */
+    'prompts' => [
+        'extract_actor_info' => 'Extract the following information from the text and return it as JSON: first_name, last_name, address, height, weight, gender, age. If any information is not available, use null for that field.',
+    ],
 ];
