@@ -22,7 +22,14 @@ This is a Laravel application for managing actors with AI-powered description pr
    ./setup.sh
    ```
 
-3. **Open your browser:**
+3. **Add to src/.env your API key for OPENAI_API_KEY**
+
+4. **Run restart script:**
+   ```bash
+   ./restart.sh
+   ```
+
+5. **Open your browser:**
    ```
    http://localhost
    ```
