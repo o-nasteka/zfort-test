@@ -60,17 +60,17 @@ fi
 cd laradock
 
 print_status "Stopping any existing containers..."
-docker-compose down 2>/dev/null || true
+docker compose down 2>/dev/null || true
 
 print_status "Starting Docker containers..."
-docker-compose up -d nginx mysql phpmyadmin
+docker compose up -d nginx mysql phpmyadmin
 cd ..
 
 print_status "Waiting for containers to be ready..."
 sleep 5
 
 print_status "Running Laravel setup inside workspace container..."
-docker-compose -f laradock/docker-compose.yml exec -T workspace bash -c "
+docker compose -f laradock/docker-compose.yml exec -T workspace bash -c "
 cd /var/www &&
 cp .env.example .env &&
 composer install --no-dev --optimize-autoloader &&

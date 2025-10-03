@@ -38,13 +38,13 @@ if [ ! -d "laradock" ]; then
 fi
 
 print_status "Stopping any existing containers..."
-docker-compose -f laradock/docker-compose.yml down 2>/dev/null || true
+docker compose -f laradock/docker-compose.yml down 2>/dev/null || true
 
 print_status "Starting Docker containers..."
-docker-compose -f laradock/docker-compose.yml up -d nginx mysql phpmyadmin workspace php-fpm
+docker compose -f laradock/docker-compose.yml up -d nginx mysql phpmyadmin workspace php-fpm
 
 print_status "Clearing Laravel caches..."
-docker-compose -f laradock/docker-compose.yml exec -T workspace bash -c "
+docker compose -f laradock/docker-compose.yml exec -T workspace bash -c "
 cd /var/www &&
 php artisan config:clear &&
 php artisan config:cache &&
